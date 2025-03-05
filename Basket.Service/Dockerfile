@@ -4,9 +4,11 @@ WORKDIR /app
 FROM mcr.microsoft.com/dotnet/sdk:9.0 AS build
 ARG BUILD_CONFIGURATION=Release
 WORKDIR /src
-COPY ["Basket.Service/Basket.Service.csproj", "Basket.Service/"]
+COPY ["basket-microservice/Basket.Service/Basket.Service.csproj", "Basket.Service/"]
+COPY ["local-nuget-packages/", "/local-nuget-packages/"]
+COPY ["basket-microservice/nuget.config", "./"]
 RUN dotnet restore "Basket.Service/Basket.Service.csproj"
-COPY . .
+COPY ["basket-microservice/Basket.Service/", "Basket.Service/"]
 WORKDIR "/src/Basket.Service"
 RUN dotnet build "Basket.Service.csproj" -c $BUILD_CONFIGURATION -o /app/build
 

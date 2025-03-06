@@ -1,3 +1,4 @@
+using System.Globalization;
 using ECommerce.Shared.Infrastructure.EventBus.Abstractions;
 using Microsoft.Extensions.Caching.Distributed;
 
@@ -13,11 +14,10 @@ public class ProductPriceUpdatedEventHandler(IDistributedCache cache) : IEventHa
     public async Task Handle(ProductPriceUpdatedEvent @event)
     {
         var existingProductPrice = await cache.GetStringAsync(@event.ProductId.ToString());
-        if (existingProductPrice is null || 
-            !string.Equals(existingProductPrice, @event.NewPrice.ToString()))
+        if (existingProductPrice is null || !string.Equals(existingProductPrice, @event.NewPrice.ToString(CultureInfo.InvariantCulture)))
         {
             await cache.SetStringAsync(@event.ProductId.ToString(), 
-                @event.NewPrice.ToString(), _cacheEntryOptions);
+                @event.NewPrice.ToString(CultureInfo.InvariantCulture), _cacheEntryOptions);
         }
     }
 }

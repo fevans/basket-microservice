@@ -5,10 +5,10 @@ namespace Basket.Service.IntegrationEvents.EventHandlers;
 
 internal class OrderCreatedEventHandler(IBasketStore basketStore) : IEventHandler<OrderCreatedEvent>
 {
-    public Task Handle(OrderCreatedEvent @event)
+    public  async Task Handle(OrderCreatedEvent @event)
     {
-        basketStore.DeleteCustomerBasket(@event.CustomerId);
+       await basketStore.DeleteCustomerBasket(@event.CustomerId);
 
-        return Task.CompletedTask;
+        //return Task.CompletedTask;
     }
 }

@@ -5,16 +5,16 @@ namespace Basket.Service.Infrastructure.Data;
 
 internal interface IBasketStore
 {
-    CustomerBasket GetBasketByCustomerId(string customerId);
+    Task<CustomerBasket> GetBasketByCustomerId(string customerId);
     
     // Add Create customer basket method
-    void CreateCustomerBasket(CustomerBasket customerBasket);
+    Task CreateCustomerBasket(CustomerBasket customerBasket);
     
     // Add Update customer basket method
     
-    void UpdateCustomerBasket(CustomerBasket customerBasket);
+    Task UpdateCustomerBasket(CustomerBasket customerBasket);
     
     // Add Delete customer basket method
-    void DeleteCustomerBasket(string customerId);
+    Task DeleteCustomerBasket(string customerId);
     
 }

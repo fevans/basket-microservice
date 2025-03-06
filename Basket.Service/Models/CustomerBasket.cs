@@ -22,4 +22,5 @@ internal record CustomerBasket {
     // remove a basket product from the basket
     public void RemoveBasketProduct(string productId) => _products.RemoveWhere(p => p.ProductId == productId);        
     
+    public decimal BasketTotal => _products.Sum(p => p.ProductPrice * p.Quantity);
 }

@@ -14,9 +14,13 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="ECommerce.Shared" Version="1.1.0" />
+    <PackageReference Include="ECommerce.Shared" Version="2.0.0" />
     <PackageReference Include="Microsoft.Extensions.Caching.StackExchangeRedis" Version="9.0.2" />
-    <PackageReference Include="RabbitMQ.Client" Version="6.8.1" />
+    <PackageReference Include="RabbitMQ.Client" Version="7.1.1" />
+  </ItemGroup>
+  <ItemGroup>
+    <InternalsVisibleTo Include="Basket.Tests" />
+    <InternalsVisibleTo Include="DynamicProxyGenAssembly2"/>
   </ItemGroup>
 
 </Project>

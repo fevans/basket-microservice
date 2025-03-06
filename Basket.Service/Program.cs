@@ -7,11 +7,12 @@ using ECommerce.Shared.Infrastructure.EventBus;
 using ECommerce.Shared.Infrastructure.RabbitMq;
 
 var builder = WebApplication.CreateBuilder(args);
-builder.Services.AddScoped<IBasketStore, InMemoryBasketStore>();
 builder.Services.AddRabbitMqEventBus(builder.Configuration)
     .AddRabbitMqSubscriberService(builder.Configuration)
     .AddEventHander<OrderCreatedEvent, OrderCreatedEventHandler>()
-    .AddEventHander<ProductPriceUpdatedEvent, ProductPriceUpdatedEventHandler>()
+    .AddEventHander<ProductPriceUpdatedEvent, ProductPriceUpdatedEventHandler>();
+
+builder.Services.AddScoped<IBasketStore, RedisBasketStore>()
     .AddRedisCache(builder.Configuration);
 
 

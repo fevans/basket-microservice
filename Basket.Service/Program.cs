@@ -5,12 +5,14 @@ using Basket.Service.IntegrationEvents;
 using Basket.Service.IntegrationEvents.EventHandlers;
 using ECommerce.Shared.Infrastructure.EventBus;
 using ECommerce.Shared.Infrastructure.RabbitMq;
+using ECommerce.Shared.Observability;
 
 var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddRabbitMqEventBus(builder.Configuration)
     .AddRabbitMqSubscriberService(builder.Configuration)
     .AddEventHander<OrderCreatedEvent, OrderCreatedEventHandler>()
-    .AddEventHander<ProductPriceUpdatedEvent, ProductPriceUpdatedEventHandler>();
+    .AddEventHander<ProductPriceUpdatedEvent, ProductPriceUpdatedEventHandler>()
+    .AddOpenTelemetryTracing(builder.Configuration, "Basket");
 
 builder.Services.AddScoped<IBasketStore, RedisBasketStore>()
     .AddRedisCache(builder.Configuration);

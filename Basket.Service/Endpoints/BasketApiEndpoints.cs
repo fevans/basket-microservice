@@ -22,16 +22,16 @@ public static class BasketApiEndpoints
         
         // Add Create basket endpoint
         routeBuilder.MapPost( "/{customerId}", 
-            CreateBasketAsync);
+            CreateBasketAsync).RequireAuthorization();
         
         //Add Update basket endpoint
-        routeBuilder.MapPut("/{customerId}", AddBasketProductAsync);
+        routeBuilder.MapPut("/{customerId}", AddBasketProductAsync).RequireAuthorization();
         
         // Add Delete basket product endpoint
-        routeBuilder.MapDelete("/{customerId}/{productId}",  DeleteBasketProductAsync);
+        routeBuilder.MapDelete("/{customerId}/{productId}",  DeleteBasketProductAsync).RequireAuthorization();
         
         // Add Delete basket endpoint
-        routeBuilder.MapDelete("/{customerId}", DeleteBasketAsync);
+        routeBuilder.MapDelete("/{customerId}", DeleteBasketAsync).RequireAuthorization();
     }
 
     internal static async Task<NoContent> DeleteBasketAsync([FromServices] IBasketStore basketStore, string customerId)
